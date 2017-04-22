@@ -3,11 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
 use App\Http\Requests;
-
 use Illuminate\Routing\Controller;
-
 use \Exception as Exception;
 
 class CubeController extends Controller
@@ -34,8 +31,9 @@ class CubeController extends Controller
 			
 			if($T > 50 || $T < 1)
 			{
-				throw new Exception('La cantidad de casos de prueba está fuera del rango.');	
+				throw new Exception('La cantidad de casos está fuera del rango.');	
 			}
+
 			for($i = 0; $i < $T; $i++)
 			{
 				$line = $instructions[$actualLine];
@@ -53,8 +51,9 @@ class CubeController extends Controller
 				$M = intval($parts[1]);
 				if($M > 1000 || $M < 1)
 				{
-					throw new Exception('La cantidad de operaciones está fuera del rango.');	
+					throw new Exception('La cantidad de operaciones sobre el cubo está fuera del rango.');	
 				}
+
 				for($j = 0; $j < $M; $j++)
 				{
 					$line = $instructions[$actualLine];
@@ -67,6 +66,7 @@ class CubeController extends Controller
 					{
 						throw new Exception('La posición está fuera del rango.');
 					}
+
 					if($operation[0] == "UPDATE")
 					{
 						$W = doubleval($operation[4]);
@@ -85,7 +85,7 @@ class CubeController extends Controller
 						$z2 = intval($operation[6]);
 						if($x2 < $x1 || $y2 < $y1 || $z2 < $z1 || $x2 > $N || $y2 > $N || $z2 > $N)
 						{
-							throw new Exception('La posición do consulta está fuera del rango.');	
+							throw new Exception('La posición de consulta está fuera del rango.');	
 						}
 						foreach ($cube as $key => $value) {
 							$a = intval(substr($key, 0,3));
@@ -100,6 +100,10 @@ class CubeController extends Controller
 						}
 
 						$output = $output . strval($sum) . PHP_EOL;
+					}
+					else
+					{
+						throw new Exception('No se reconoce la operación.');
 					}
 				}
 			}
