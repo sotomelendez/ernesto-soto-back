@@ -11,16 +11,7 @@
 |
 */
 
-/*
-Route::get('/', function () {
-    return view('welcome');
-});
-*/
-
 Route::get('/', 'CubeController@home');
-
-Route::post('result', 'CubeController@result');
-
 
 /*
 |--------------------------------------------------------------------------
@@ -33,8 +24,4 @@ Route::post('result', 'CubeController@result');
 |
 */
 
-/*
-Route::group(['middleware' => ['web']], function () {
-    //
-});
-*/  
+Route::post('result', 'CubeController@result');

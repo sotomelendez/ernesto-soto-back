@@ -12,7 +12,7 @@ use \Exception as Exception;
 
 class CubeController extends Controller
 {
-	//
+	
 	public function home()
 	{
 		return view('cube.index');
@@ -20,11 +20,11 @@ class CubeController extends Controller
 	
 	public function result(Request $request)
 	{
-		$entrada = $request->input('entrada');
+		$input = $request->input('entrada');
 		
 		$output = '';
 		try{
-			$instructions = explode(PHP_EOL,$entrada);
+			$instructions = explode(PHP_EOL,$input);
 			
 			$actualLine = 0;
 			
@@ -32,7 +32,8 @@ class CubeController extends Controller
 			$actualLine++;
 			$T = intval($line);
 			
-			if($T > 50 || $T < 1){
+			if($T > 50 || $T < 1)
+			{
 				throw new Exception('La cantidad de casos de prueba está fuera del rango.');	
 			}
 			for($i = 0; $i < $T; $i++)
@@ -42,14 +43,16 @@ class CubeController extends Controller
 				$parts = explode(" ",$line);
 				$N = intval($parts[0]);
 
-				if($N > 100 || $N < 1){
+				if($N > 100 || $N < 1)
+				{
 					throw new Exception('El tamaño del cubo está fuera del rango.');	
 				}
 				
 				$cube = array();
 				
 				$M = intval($parts[1]);
-				if($M > 1000 || $M < 1){
+				if($M > 1000 || $M < 1)
+				{
 					throw new Exception('La cantidad de operaciones está fuera del rango.');	
 				}
 				for($j = 0; $j < $M; $j++)
@@ -60,13 +63,15 @@ class CubeController extends Controller
 					$x1 = intval($operation[1]);
 					$y1 = intval($operation[2]);
 					$z1 = intval($operation[3]);
-					if($x1 < 1 || $y1 < 1 || $z1 < 1 || $x1 > $N || $y1 > $N || $z1 > $N){
+					if($x1 < 1 || $y1 < 1 || $z1 < 1 || $x1 > $N || $y1 > $N || $z1 > $N)
+					{
 						throw new Exception('La posición está fuera del rango.');
 					}
 					if($operation[0] == "UPDATE")
 					{
 						$W = doubleval($operation[4]);
-						if($W > 1000000000 || $W < 0.000000001){
+						if($W > 1000000000 || $W < 0.000000001)
+						{
 							throw new Exception('El valor de actualización está fuera del rango.');	
 						}
 						$key = str_pad($x1,3,'0',STR_PAD_LEFT) . str_pad($y1,3,'0',STR_PAD_LEFT) . str_pad($z1,3,'0',STR_PAD_LEFT);
@@ -78,8 +83,9 @@ class CubeController extends Controller
 						$x2 = intval($operation[4]);
 						$y2 = intval($operation[5]);
 						$z2 = intval($operation[6]);
-						if($x2 < $x1 || $y2 < $y1 || $z2 < $z1 || $x2 > $N || $y2 > $N || $z2 > $N){
-							throw new Exception('La posición está fuera del rango.');	
+						if($x2 < $x1 || $y2 < $y1 || $z2 < $z1 || $x2 > $N || $y2 > $N || $z2 > $N)
+						{
+							throw new Exception('La posición do consulta está fuera del rango.');	
 						}
 						foreach ($cube as $key => $value) {
 							$a = intval(substr($key, 0,3));
